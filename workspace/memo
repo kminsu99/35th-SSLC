@@ -1,8 +1,7 @@
 # 가상환경 생성
 	python -m venv .venv          
-# 가상환경 활성화
+# 가상환경 활성화 (venv폴더가 존재하는 공간에서 반드시)
 [ Windows: ]
 	.venv\Scripts\activate
 [ Mac/Linux: ]
 	source .venv/bin/activate
-

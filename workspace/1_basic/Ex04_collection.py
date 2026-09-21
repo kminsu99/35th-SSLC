@@ -3,11 +3,24 @@
 # 1. list
 # 오늘 취약점 스캔을 돌려야 하는 호스트 대기열
 
-scan_queue = ["prd-bastion-01", "prd-db-02", "stg-api-01"] # prd는 Production, stg는 Staging의 약어
+# scan_queue = ["prd-bastion-01", "prd-db-02", "stg-api-01"] # prd는 Production, stg는 Staging의 약어
 
+# print(scan_queue)
+# print(scan_queue[0])
+# print(scan_queue[-1])
 
+# scan_queue.append("prd-cache-01")
+# print(scan_queue)
+# scan_queue.remove("stg-api-01")
+# print(scan_queue)
+# scan_queue.sort()
+# print(scan_queue)
+# scan_queue.pop()
+# print(scan_queue)
+# scan_queue.insert(2, "stg-api-01")
+# print(scan_queue)
 
-
+# print()
 
 
 # 아래 출력를 했을 때 어떤 결과가 나올지 미리 예측을 하시고 확인하시기 바랍니다.
@@ -24,18 +37,19 @@ scan_queue = ["prd-bastion-01", "prd-db-02", "stg-api-01"] # prd는 Production, 
 # 2. tuple
 #  (프로토콜, 포트, 액션)
 #  감사 스크립트가 실행 도중에 방화벽 규칙을 실수로 고치면 안 되므로, 변경 불가로 묶습니다.
-firewall_rule = ("TCP", 22, "ALLOW")
-
+# firewall_rule = ("TCP", 22, "ALLOW") #tuple
+# firewall_rule = "TCP", 22, "ALLOW" #tuple -> 기본값 튜플임
+# firewall_rule = ["TCP", 22, "ALLOW"] #list
 # print(f"프로토콜: {firewall_rule[0]}, 포트: {firewall_rule[1]}, 액션: {firewall_rule[2]}")
 
-# firewall_rule[1] = 2222   -> TypeError: 'tuple' object does not support item assignment
+# firewall_rule[1] = 2222   #-> TypeError: 'tuple' object does not support item assignment
+# print(f"프로토콜: {firewall_rule[0]}, 포트: {firewall_rule[1]}, 액션: {firewall_rule[2]}")
 
 
 #-------------------------------------------------------
 # 3. 세트 
-names = { "홍길동", "김철수", "이영희", "홍길동"}  # 중복된 이름은 1개만 남음
-
-
+# names = { "홍길동", "김철수", "이영희", "홍길동"}  # 중복된 이름은 1개만 남음
+# print(names)
 
 
 
@@ -48,7 +62,7 @@ approved_ports = {22, 80, 443}
 
 # 허용되지 않은데 열려있는 포트 (차집합)
 # unauthorized_ports = scanned_open_ports - approved_ports
-# 아래 출력를 했을 때 어떤 결과가 나올지 미리 예측을 하시고 확인하시기 바랍니다.
+# # 아래 출력를 했을 때 어떤 결과가 나올지 미리 예측을 하시고 확인하시기 바랍니다.
 # print(f"비인가 개방 포트: {unauthorized_ports}")  
 
 # 이전 주/이번 주 모두 열려있던 포트 (교집합, 상시 노출 포트)
@@ -57,30 +71,29 @@ approved_ports = {22, 80, 443}
 # scanned_open_ports = {22, 80, 443, 3306, 6379}
 # last_week_open_ports = {22, 443, 6379, 8080}
 # persistent_exposed_ports = scanned_open_ports.intersection(last_week_open_ports)
-# # 아래 출력를 했을 때 어떤 결과가 나올지 미리 예측을 하시고 확인하시기 바랍니다.
+# # # 아래 출력를 했을 때 어떤 결과가 나올지 미리 예측을 하시고 확인하시기 바랍니다.
 # print(f"2주 연속 노출 포트: {persistent_exposed_ports}") # {22, 443, 6379}
 
 
 #-------------------------------------------------------
 # 4. 딕셔너리
 
-security_event = {
-    "cve_id": "CVE-2026-30112",
-    "host": "prd-db-02",
-    "severity": "HIGH",
-    "cvss": 8.1,
-    "patched": False
-}
-print(f"취약점: {security_event['cve_id']} ({security_event['severity']})")
-
-
-
-# 패치 완료 처리 및 담당자 추가
+# security_event = {
+#     "cve_id": "CVE-2026-30112",
+#     "host": "prd-db-02",
+#     "severity": "HIGH",
+#     "cvss": 8.1,
+#     "patched": False
+# }
+# print(f"취약점: {security_event['cve_id']} ({security_event['severity']})")
 
 
 
 
-# cve_card = {"id": "CVE-2026-11450", "cvss": 9.4}
+
+
+# cve_card = {"id"   : "CVE-2026-11450"
+#           , "cvss" : 9.4}
 # print(cve_card.keys())     # dict_keys(['id', 'cvss'])
 # print(cve_card.values())   # dict_values(['CVE-2026-11450', 9.4])
 # print(cve_card.items())    # dict_items([('id', 'CVE-2026-11450'), ('cvss', 9.4)])
@@ -88,6 +101,32 @@ print(f"취약점: {security_event['cve_id']} ({security_event['severity']})")
 
 
 # get() : 없는 필드를 찾을 때 에러 대신 기본값 반환
+# print()
+# print(cve_card["id"])
+# print(cve_card.get("id"))
+
+# # print(cve_card["assinged"]) #KeyError: "assigned"
+# print(cve_card.get("assinged"))
+# print(cve_card.get("assinged", "미배정"))
 
 
 
+# cve_card = {"id"   : "CVE-2026-11450"
+#           , "cvss" : 9.4}
+# # 패치 완료 처리 및 담당자 추가
+
+# #Dict 추가는 존재하지않는 키값에다가 저장
+# cve_card['assigned'] = "홍길동"
+# cve_card['patched'] = True
+# print(cve_card)
+
+
+
+#test
+
+devices = {
+    "router": "192.168.1.1",
+    "switch": "192.168.1.2",
+    "firewall": "192.168.1.254"
+}
+print(devices.get("firewall"))

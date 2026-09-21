@@ -31,5 +31,10 @@ print(f"[네트워크 점검] 담당자: {user_name} / IP: {ip_addr} / Ping: {pi
 5. 출력 예시: `[브루트포스 탐지] 분석가: 이수진 / 203.0.113.55 실패 34회 / 위험도 82.6`
 
 '''
-
+import random
+user = input("분석가 이름을 입력하세요:")
+fail_count = random.randint(5,50)
+ip_addr = "203.0.113.55"
+risk_score = random.uniform(0,100)
+print(f"[브루트포스 탐지] 분석가: {user} / {ip_addr} 실패 {fail_count}회 / 위험도 {risk_score:.1f}")
 
