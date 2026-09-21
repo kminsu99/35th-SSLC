@@ -11,6 +11,12 @@
     (천 단위 콤마를 적용한다.)
 5. 출력 예시: [네트워크 점검] 담당자: 홍길동 / IP: 192.168.0.37 / Ping: 23.4ms / 전송데이터량: 123,456byte
 '''
+import random
+user_name = input("user_name : ")
+ip_addr = "192.168.0."+str(random.randint(1,254))
+ping = random.uniform(1,100)
+data_size = random.randint(1000,1000000)#:,
+print(f"[네트워크 점검] 담당자: {user_name} / IP: {ip_addr} / Ping: {ping:.1f}ms / 전송데이터량: {data_size:,}byte")
 
 
 

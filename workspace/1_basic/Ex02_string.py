@@ -59,11 +59,11 @@ SERVER-IP SERVER-IP SERVER-IP
 # second = first + 100    # 문자와 숫자 연산은 안되기에 숫자를 문자열로 변경해야 한다
 # 위에 변수로 str 이라고 선언하면 str()함수를 사용할 수 없다
 # ********** 변수명 str이라고 주지말자!!!!!!!!!!!
-## str = '문자열'
-first = "안녕"
-# second = first + 100
-second = first + str(100)
-print(second)
+# ## str = '문자열'
+# first = "안녕"
+# # second = first + 100
+# second = first + str(100)
+# print(second)
 
 
 # -----------------------------------------
@@ -85,14 +85,24 @@ msg ='오늘도 행복도 하다'
         오도행
         다
 """
+# for i in range(0, len(msg)):
+#     print(i, "[", msg[i], "]", end="")
+# print()
 
-
+# print(msg[0])
+# print(msg[:2])
+# print(msg[1:6])
+# print(msg[:5:2])
+# print(msg[9])
 
 
 """ [ 참고 ] 
        ` msg[0] == msg[-0] 같은 값을 추출
        ` msg[i:-j] i번째부터 뒤에서 j-1까지 추출
 """
+# msg ='1234567890'
+# print(msg[2:-2],".END") #도늘
+#[start:end] -> end<0일 경우 문자열끝-end까지
 # print()
 
 # print(msg[-0])
@@ -109,7 +119,10 @@ msg ='오늘도 행복도 하다'
 # 5번째 전의 문자까지에서 2개씩 건너뛰어
 # 문자열 전체에서 2개씩 건너뛰어
 
-
+# print(msg[5:])
+# print(msg[:5])
+# print(msg[:5:2])
+# print(msg[::2])
 
 
 
@@ -171,15 +184,19 @@ msg = '사용자 admin 로그인 실패, IP 192.168.0.10 로그인 실패'
 """
 
 msg = '사용자 admin 로그인 실패, IP 192.168.0.10 로그인 실패'
-# 1) 'admin'이라는 글자 위치 찾기
-
-# 2) '차단'이라는 글자 위치 찾기
-
-# 3) '실패'라는 글자를 오른쪽에서 왼쪽으로 찾기
-
-# 4) 문자열 전체 길이 구하기
-
-# 5) '실패'라는 단어의 갯수 구하기
+# for i in range(0, len(msg)):
+#     print(i, "[", msg[i], "]", end="")
+# print()
+# # 1) 'admin'이라는 글자 위치 찾기
+# print(msg.find("admin"))
+# # 2) '차단'이라는 글자 위치 찾기
+# print(msg.find("차단"))
+# # 3) '실패'라는 글자를 오른쪽에서 왼쪽으로 찾기
+# print(msg.rfind("실패"))
+# # 4) 문자열 전체 길이 구하기
+# print(len(msg))
+# # 5) '실패'라는 단어의 갯수 구하기
+# print(msg.count("실패"))
 
 
 
@@ -191,7 +208,11 @@ msg = '사용자 admin 로그인 실패, IP 192.168.0.10 로그인 실패'
 #   s.rstrip() : 오른쪽 공백 지우기
 #   s.strip() : 양쪽 공백 지우기
 
-msg = '  Connect IP 192.168.0.10   '
+# msg = '  Connect IP 192.168.0.10   '
+# print("'" + msg+ "'")
+# print("'" + msg.lstrip().rstrip()+ "'")
+# print("'" + msg.strip()+ "'")
+# print("'" + msg.replace(" ", "")+ "'")
 
 # print()
 # print(msg.upper())  # 출력결과에서 드래그로 결과 확인
@@ -213,6 +234,14 @@ msg = '  Connect IP 192.168.0.10   '
 # (4) /usr/local/bin
 
 msg = "접속 IP 192.168.0.10 로그인 성공"
+print(msg)
+print(msg.replace("192.168.0.10", "10.0.0.10"))
+msg = msg.replace("192.168.0.10", "10.0.0.10")
+print(msg)
+
+print(msg.split())
+print("/".join(msg.split()))
+
 path_list = ['usr', 'local', 'bin']
 
 
