@@ -1,0 +1,8 @@
+# 가상환경 생성
+	python -m venv .venv          
+# 가상환경 활성화
+[ Windows: ]
+	.venv\Scripts\activate
+[ Mac/Linux: ]
+	source .venv/bin/activate
+
