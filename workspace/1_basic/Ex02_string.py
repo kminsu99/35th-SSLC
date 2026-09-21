@@ -1,27 +1,27 @@
 # (0) 문자열을 "" 이나 '' 으로 표현
-msg = '안녕 파이썬'
-print(msg)
+# msg = '안녕 파이썬'
+# print(msg)
 
-msg = "안녕 파이썬"
-print(msg)
+# msg = "안녕 파이썬"
+# print(msg)
 
 # -----------------------------------------
 # (1) 개행을 포함한 문자열
 
-msg = """
-    안녕하세요.
-    저는 성이 파이이고,
-    이름은 썬입니다.
-    잘 부탁합니다.
-"""
-print(msg)
+# msg = """
+#     안녕하세요.
+#     저는 성이 파이이고,
+#     이름은 썬입니다.
+#     잘 부탁합니다.
+# """
+# print(msg)
 
-msg = '''
-    행복합시다    
-    파이썬을
-    즐깁시다
-'''
-print(msg)
+# msg = '''
+#     행복합시다    
+#     파이썬을
+#     즐깁시다
+# '''
+# print(msg)
 
 # -----------------------------------------
 #  (2) 문자열 연산
@@ -39,7 +39,16 @@ oxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxoxox
 SERVER-IP SERVER-IP SERVER-IP
 ==================================================
 """
+# print(a + " " + b + " ?")
+# print(a * 3)
 
+# print()
+
+# print("-" * 40)
+# print(a+"-"+b)
+# print("ox" * 20)
+# print((a+"-"+b+" ") * 3)
+# print("=" * 40)
 
 
 
@@ -51,10 +60,10 @@ SERVER-IP SERVER-IP SERVER-IP
 # 위에 변수로 str 이라고 선언하면 str()함수를 사용할 수 없다
 # ********** 변수명 str이라고 주지말자!!!!!!!!!!!
 ## str = '문자열'
-# first = "안녕"
-# #second = first + 100
-# second = first + str(100)
-# print(second)
+first = "안녕"
+# second = first + 100
+second = first + str(100)
+print(second)
 
 
 # -----------------------------------------
