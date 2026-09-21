@@ -1,0 +1,10 @@
+#github 저장소 연결, 이름 "origin"
+    git remote add origin https://github.com/kminsu99/35th-SSLC.git
+   
+#현재 로컬 branch "main"을 업로드
+ // git branch -M main
+    git push -u origin main
+
+
+#브랜치 이동
+    git checkout "id(앞4자리)"  
