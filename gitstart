@@ -7,4 +7,22 @@
 
 
 #브랜치 이동
-    git checkout "id(앞4자리)"  
+    #switch
+    용도 : 브랜치 이동
+        #브랜치명
+        git switch branch_name
+        #커밋id(ex : 84b0849)
+        git switch --detach 84b0
+        #브랜치 생성 후 이동
+        git switch -c branch_name
+
+    #checkout
+    용도 : 브랜치 이동 + 커밋 이동 + 파일복
+        #브랜치명
+        git checkout branch_name
+        #커밋id
+        git checkout 84b0
+
+-> checkout은 기능을 다가짐, 기능과다해서 기능을 분리함
+브랜치 이동 : switch
+파일 복원 : restore
