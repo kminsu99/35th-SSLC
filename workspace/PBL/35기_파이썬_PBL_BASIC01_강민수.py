@@ -33,7 +33,6 @@ critical_hosts = ("WEB-01", "DB-01")
 #4. user input : 신규CVE ID, 대상 호스트명 -> list에 반영
 new_cve = input("추가할 CVE ID : ")
 new_host   = input("추가할 대상 호스트 : ")
-print()
 vuln_assets.append({"cve":new_cve, "host":new_host})
 
 #5. 상태 업데이트 : 특정 인덱스의 취약점 패치(patched)상태값 직접 수정

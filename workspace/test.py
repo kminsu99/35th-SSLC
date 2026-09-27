@@ -1,189 +1,178 @@
-#포함 연산자
-# # str
-# print("---string---")
-# # print("a" in "apple")
-# print("ap" not in "apple")
-# #문자열속 단어 가능, 문자열속 문자열 불가능 // Trie는 아닌가봄
-
-# #arr
-# print("---arr---")
-# fruits= ["apple","banana","orange"]
-# print('print("apple" in fruits)')
-# print("apple" in fruits)
-# print('print("Apple" in fruits)')
-# print("Apple" in fruits) #대문자 구별함
-
-#식별 연산자
-
-# a, b = 10, 10
-# print(a==b)
-# print(a is b)
-# a = [10]
-# c = [10]
-# print(a==c)
-# print(a is c)
-
-#인덱싱
-
-s = "abcdefgh"
-# print(s[:])
-
-#문자열 포맷
-# 천 단위 쉼표 표시
-# money = 123456748
-# print(f"금액 : {money:,}원")
-# 숫자형식, 2d, 02d, .2f
-# print(f"{ss:.2f}"")
-
-
-# 자릿수지정 : 서버번호-00X
-
-# server_number = 3
-# print(f"서버 번호-{server_number:3d}")
-
-# import random
-# random.randint(a, b)	#a ~ b 사이의 정수 난수
-# random.uniform(a, b)	#a ~ b 사이의 실수 난수
-# random.random()	#0 이상 1 미만의 실수 난수
-
-
+#35기_파이썬_PBL_ADV01_강민수.py
 """
-리스트 인덱스
-메서드	설명
-append(요소)	리스트 맨 마지막에 하나 추가
-pop()	마지막 요소를 지움
-extend([요소들])	리스트 마지막에 여러 개 추가
-remove('요소값')	해당 요소값 지움
-insert(idx, '데이터')	원하는 위치에 자료 삽입
-리스트명[n:m]	n부터 m-1까지 데이터 추출
+시스템관리자,
+서버증설 -> 담당자마다 제각각 형식으로 서버 정보 기록[IP, port]오타 사고 발생
+노션(=서버 자산대장), 터미널에서 번호 입력 -> 서버 등록,조회,상태 변경, 폐기 기능(=서버 자산관리 CLI)
+호스트명, IPaddr, port 형식 < 정규표현식 사전 검증 기능+
+
+목표
+1. 함수 구현 호출 : CRUD기능을 기능별 모듈화 > 재사용성up
+2. 정규표현식(Regex)활용 : 호스트명, IPaddr, port > user input 검증, 무결성 유지
+3. Notion API연동 : notion-client SDK 활용, 외부서비스 통신, 데이터 실시간 제어(CRUD)
+4. 환경변수 자동화 : python-dotenv, load_dotenv, set_key사용 : 생선된ID -> .env 저장 자동화
+
+요구사항
+1. 메뉴 인터페이스 : loop 활용 user에게 menu제공, 입력요청, 0입력시 프로그램 종료
+2. 조회(READ) : 현재 DB에 등록된 모든 server's host, ip, port, status, tag를 번호와 함께 출력
+3. 생성(CREATE) : input(host, ip, port, status, tag) -> DB에 page추가, 신규 등록시 상태 'Active'고정
+4. 수정(UPADTE) : 특정 서버를 번호로 선택하고 상태(select)를 Active/Maintenance/Decommissioned중 하나로 변경(덮어쓰기)
+5. 삭제(DELETE) : 선택한 서버를 노션 휴지통(보관처리)으로 이동
+6. 입력 검증(VALIDATION) : host, ip, port, status, tag -> 정규표현식으로 형식을 사전확인
+"""
+# 가이드1. 환경설정 및 API인증
+# 가이드1-1. 라이브러리 로드
+# notion앱에서 DB페이지 생성 후 ...클릭->개발자포털->신규연결->토큰생성
+# page_id는 웹에서 DB페이지주소로 찾기 3e82fc0cd77080a6a884f92780547ee5
+# ex)https://app.notion.com/p/3e82fc0cd77080a6a884f92780547ee5?v=3e82fc0cd77080f7be43000c8d15844e
+# DB페이지에서 ...클릭->연결->토큰이름선택
+import os, re
+#python -m pip install notion-client
+from notion_client import Client
+from dotenv import load_dotenv, set_key, find_dotenv
+
+# 가이드1-2. os.getenv()로 TOKEN, PAGE_ID할당, Client초기화
+load_dotenv()
+NOTION_TOKEN = os.getenv("NOTION_TOKEN")
+NOTION_PARENT_PAGE_ID = os.getenv("NOTION_PARENT_PAGE_ID")
+notion = Client(auth=NOTION_TOKEN)
+# API TEST
+# print(f"TOKEN : {NOTION_TOKEN}\nPAGE_ID : {NOTION_PARENT_PAGE_ID}")
+
+# print("Data Source 개수:", len(response["results"]))
+# for item in response["results"]:
+#     print("ID:", item["id"])
+#     print("OBJECT:", item["object"])
+# 가이드1-3. 생성된 DATA_SOURCE_ID는 set_key()로 .env에 자동 저장
+DATA_SOURCE_ID = os.getenv("DATA_SOURCE_ID")
+if not DATA_SOURCE_ID:
+    DATA_SOURCE_ID = response["results"][0]["id"]
+    set_key(".env", "DATA_SOURCE_ID", response["results"][0]["id"])
+# print(f"DATA_SOURCE_ID : {DATA_SOURCE_ID}") #DATA SOURCE ID 출력
+
+
+# 가이드2. 데이터 유효성 검증(Regex)
+HOSTNAME_PATTERN = re.compile(r"^srv-(web|db|was|cache)-\d{2}$")
+IP_PATTERN = re.compile(r"^\d{1,3}(\.\d{1,3}){3}$")
+PORT_PATTERN = re.compile
+
+def validate_hostname(value: str) -> bool:
+    return bool(HOSTNAME_PATTERN.match(value))
+
+def validate_ip(value: str) -> bool:
+    if not IP_PATTERN.match(value):
+        return False
+    return all(0 <= int(octet) <= 255 for octet in value.split("."))
+
+def validate_port(value: str) -> bool:
+    if not PORT_PATTERN.match(value):
+        return False
+    return 1 <= int(value) <= 65535
+
+# 가이드3. Notion DB Scheme 설계
+"""
+title = host
+rich_text = ip
+number = port
+select:Active/Maintenance/Decommissioned = status
+multi_select:Web/DB/WAS/Cache : tag
 """
 
+DATA_SOURCE_ID = os.getenv("DATA_SOURCE_ID")
+# for row in response["results"]:
+#     print("=" * 50)
 
-# alerts = ['로그인 실패', '포트 스캔 탐지', '악성 파일 탐지', '비정상 접속', 'DDoS 공격 탐지'] 
-# print(alerts)
-# # (1) 'SQL Injection 탐지', 'Brute Force 공격 탐지'를 한꺼번에 리스트 마지막에 추가하세요.
-# alerts.extend(['SQL Injection 탐지', 'Brute Force 공격 탐지'])
-# # (2) alerts 리스트의 마지막 요소를 제거하세요.
-# alerts.pop()
-# # (3) 'SQL Injection 탐지', 'Brute Force 공격 탐지'를 다시 한꺼번에 추가하세요.
-# alerts.extend(['SQL Injection 탐지', 'Brute Force 공격 탐지'])
-# # (4) 'SQL Injection 탐지' 요소를 리스트에서 제거하세요.
-# alerts.remove('SQL Injection 탐지')
-# # (5) alerts 리스트의 네 번째 위치(인덱스 3)에 '랜섬웨어 탐지'를 추가하세요.
-# alerts.insert(3, '랜섬웨어 탐지')
-# # (6) alerts 리스트에서 3번째 요소부터 5번째 요소까지(인덱스 3~5)를 추출하여 출력하세요.
-# print(alerts[3:6])
-# print(alerts)
+#     for name, prop in row["properties"].items():
+#         print(name, ":", prop)
 
-# alerts = ['로그인 실패', '포트 스캔 탐지', '악성 파일 탐지', '비정상 접속', 'DDoS 공격 탐지'] 
-# print(alerts)
-# alerts.extend(['SQL Injection 탐지', 'Brute Force 공격 탐지'])
-# alerts.pop()
-# alerts.extend(['SQL Injection 탐지', 'Brute Force 공격 탐지'])
-# alerts.remove('SQL Injection 탐지')
-# alerts.insert(3, '랜섬웨어 탐지')
-# print(alerts[3:6])
-# print(alerts)
+# 요구사항1. 메뉴 인터페이스 : loop 활용 user에게 menu제공, 입력요청, 0입력시 프로그램 종료
+def menu_interface():
+    while True:
+        print("""
+    1. 전체 서버 목록 조회
+    2. 신규 서버 등록
+    3. 서버 상태 변경 ( Active / Maintenance / Decommissioned )
+    4. 서버 폐기
+    0. 프로그램 종료
+    """)
+        user_input = int(input("입력 : "))
+        match user_input:
+            case 1:
+                print("1. 전체 서버 목록 조회")
+                db_read()
+            case 2:
+                print("2")
+            case 3:
+                print("3")
+            case 4:
+                print("4")
+            case 0:
+                return 0
+            case _:
+                print("예상못한 입력")
+        
 
-#Q1
-devices = {
-    "router": "192.168.1.1",
-    "switch": "192.168.1.2",
-    "firewall": "192.168.1.254"
-}
-#A1
-print(devices.get('firewall', '-1'))
+# 요구사항2. 조회(READ) : 현재 DB에 등록된 모든 server's host, ip, port, status, tag를 번호와 함께 출력
+def db_read():
+    response = notion.data_sources.query(data_source_id=DATA_SOURCE_ID)
+    for row in response["results"]:
+        print("="*50)
+        for name, prop in row["properties"].items():
+            prop_type = prop["type"]
+            match prop_type:
+                case "title":
+                    value = prop["title"][0]["plain_text"] if prop["title"] else ""
+                case "rich_text":
+                    value = value = prop["rich_text"][0]["plain_text"] if prop["rich_text"] else ""
+                case "number":
+                    value = prop["number"]
+                case "select":
+                    value = prop["select"]["name"] if prop["select"] else ""
+                case "multi_select":
+                    value = ", ".join(x["name"] for x in prop["multi_select"])
+                case _:
+                    value = f"[{prop_type}]"
+            print(f"{name}: {value}")
+    return 0
 
-#Q2
-network = {
-    "router": {
-        "ip": "192.168.1.1",
-        "vendor": "Cisco",
-        "status": "UP"
-    },
-    "firewall": {
-        "ip": "192.168.1.254",
-        "vendor": "Fortinet",
-        "status": "UP"
-    }
-}
-
-#A2
-print(network.get('firewall', {}).get('ip', '-2'))
-
-#Q3
-alerts = {
-    "10.10.10.15": {
-        "attack": "Port Scan",
-        "severity": "High"
-    },
-    "10.10.10.20": {
-        "attack": "Brute Force",
-        "severity": "Critical"
-    },
-    "10.10.10.30": {
-        "attack": "SQL Injection",
-        "severity": "High"
-    }
-}
-
-#Q3-1 "10.10.10.20"을 키로 사용하여 공격 종류를 출력하시오.
-#A3-1
-print(alerts.get('10.10.10.20', {}).get('attack', '-2'))
-
-#Q3-2 "10.10.10.20"을 키로 사용하여 위험도를 출력하시오.
-#A3-2
-print(alerts.get('10.10.10.20', {}).get('severity', '-2'))
-
-#Q4
-security_logs = {
-    "admin": "192.168.1.10",
-    "manager": "192.168.1.20",
-    "user01": "192.168.1.30"
-}
-
-username = "hacker"
-
-"""`username`에 저장된 사용자 이름으로 접속 IP를 검색하시오.
-
-단, 해당 사용자가 등록되어 있지 않은 경우 `"사용자 정보 없음"`이 출력되도록 하시오."""
-
-#A4
-print(security_logs.get(username, '사용자 정보 없음'))
-
-#Q5
-servers = {
-    "web01": "192.168.10.10",
-    "web02": "192.168.10.20",
-    "db01": "192.168.10.30"
-}
-
-server_name = "web03"
-"""`server_name`에 저장된 서버 이름으로 IP 주소를 검색하시오.
-
-단, 등록되지 않은 서버인 경우 `"등록되지 않은 서버"`가 출력되도록 하시오."""
-
-#A5
-print(servers.get(server_name, '등록되지 않은 서버'))
+# 요구사항3. 생성(CREATE) : input(host, ip, port, status, tag) -> DB에 page추가, 신규 등록시 상태 'Active'고정
+def db_create(value: str):
+    hostname = "hostname"
+    ip_addr = "15.15.15.15"
+    port = 5555
+    notion.pages.create(
+        parent = {
+                "type": "data_source_id",
+                "data_source_id": DATA_SOURCE_ID
+        },
+        properties = {
+            "호스트명" : {
+                "title": [
+                    {"text" : {"content" : hostname}}
+                ]
+            },
+            "IP주소" : {
+                "rich_text" : [
+                    {"text" : {"content" : ip_addr}}
+                ]
+            },
+            "포트" : {
+                "number" : port
+            },
+            #신규 등록시 상태 'Active'고정
+            "상태" : {
+                "select" : [
+                    {"name" : "Active"}
+                ]
+            },
+            "태그" : {
+                "multi_select" : [
+                    {"ㅁ" : {"ㅁ" : 1}}
+                ]
+            },
+            
+            
+        }
+    )
 
 
-#A1
-print(devices.get('firewall'))
-#A2
-print(network.get('firewall', {}).get('ip'))
-#A3-1
-print(alerts.get('10.10.10.20', {}).get('attack'))
-#A3-2
-print(alerts.get('10.10.10.20', {}).get('severity'))
-#A4
-print(security_logs.get(username, '사용자 정보 없음'))
-#A5
-print(servers.get(server_name, '등록되지 않은 서버'))
-
-
-l1 = ['a', 'b']
-s1= {"a", "b"}
-d1= {"a":"a1", "b":"b1"}
-print('a' in l1)
-print('a' in s1)
-print(d1.get('a'))
+menu_interface()
