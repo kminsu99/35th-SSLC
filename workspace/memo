@@ -7,3 +7,8 @@
 	source .venv/bin/activate
 
 가상환경에서 파이썬 코드 VS매크로로 실행후 dir위치 확인
+
+#pip 설치 리스트 txt파일로 내보내기
+pip freeze > requirements.txt
+#설치 리스트 txt파일로 라이브러리 설치
+pip install -r requirements.txt
