@@ -39,7 +39,8 @@ Port: 3389 STATUS: OPEN
 Port: 80 STATUS: OPEN
 Port: 8080 STATUS: OPEN"""
 
-Path("vuln_scan.log").write_text(log_data, encoding="utf-8")
+if not Path("vuln_scan.log").exists():
+    Path("vuln_scan.log").write_text(log_data, encoding="utf-8")
 print("취약점 스캔 로그(vuln_scan.log) 생성 완료!")
 
 #######################################################################################################
@@ -51,7 +52,8 @@ archive_dir.mkdir(exist_ok=True)
 # 1. "shutil.move()"로 로그 파일을 "archive"폴더로 이동
 import shutil
 log_file = Path("vuln_scan.log")
-shutil.move(str(log_file), str(archive_dir))
+if not Path(archive_dir/log_file):
+    shutil.move(log_file, archive_dir)
 
 #######################################################################################################
 
@@ -59,9 +61,12 @@ shutil.move(str(log_file), str(archive_dir))
 safe_ports = (22, 80, 443)
 def is_safe_port(port):
     """
-    port가 화이트리스트(safe_ports)에 등록된 안전한 port인지 검증한다.
-    화이트리스트에 등록된 port일 경우 True를 반환한다.
-    return boolean
+    port가 화이트리스트(safe_ports)에 등록된 안전한 port인지 검증하는 함수.
+    화이트리스트(safe_ports)에 등록된 port일 경우 True를 반환한다.
+    Args:
+        int
+    return:
+        boolean
     """
     return port in safe_ports
 
@@ -123,13 +128,24 @@ warning_ports = list(filter(lambda port: not is_safe_port(port), log_ports))
 
 # 5. 다중 포맷 리포팅
 #     CSV  : "vulnerable_ports.csv"파일로 저장(header : "Detected_Port", "Severity") -- 값은 "Critical"고정
+import csv
 
-CSV_DATA = "Detected_Port,Severity\n"
-for port in warning_ports:
-    CSV_DATA += f'{port},Critical\n'
-with open("vulnerable_ports.csv", "w", encoding="utf-8") as file:
-    file.write(CSV_DATA)
+# CSV_DATA = "Detected_Port,Severity\n"
+# for port in warning_ports:
+#     CSV_DATA += f'{port},Critical\n'
+# with open("vulnerable_ports.csv", "w", encoding="utf-8") as file:
+#     file.write(CSV_DATA)
 # print(CSV_DATA)
+field_names = ["Detected_Port", "Severity"]
+with open("vulnerable_ports.csv", "w", newline="",encoding="utf-8") as file:
+    writer = csv.DictWriter(file, field_names)
+    writer.writeheader()
+    for port in warning_ports:
+        writer.writerow({
+            "Detected_Port": port,
+            "Severity": "Critical",
+        })
+
 
 #######################################################################################################
 

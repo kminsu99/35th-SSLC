@@ -1,9 +1,9 @@
 
-# 변수
+# # 변수
 # 변수 = '값'
 # print(변수)
 
-# 자료형
+# # 자료형
 # 정수 = 100
 # 실수 = 2.8
 # 문자열 = "안녕 하 세요"
@@ -21,11 +21,11 @@
 
 # -------------------------------
 # 숫자형 처리에 에러나는 경우
-# a = 5
-# b = 2
-# add = a + b
+a = 5
+b = 2
+add = a + b
 
-# print('a+b=', add)
+print('a+b=', add)
 # print('a+b='+ add) # str + int -> error
 
 
@@ -45,4 +45,5 @@ print('a=', a, 'b=', b)
 # b = temp
 # print('a=', a, 'b=', b)
 
-print(int(0==1))
+print((0==1)) # False
+print(int(0==1)) # 0
