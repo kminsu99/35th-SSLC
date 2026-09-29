@@ -53,7 +53,7 @@ data = {
 }
 
 
-# 3. Notion API에 직접 HTTP POST 요청
+# 3. Notion API에 직접 HTTP POST 요청 (GET / POST)
 response = requests.post(
     "https://api.notion.com/v1/databases",
     headers=headers,

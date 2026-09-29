@@ -1,10 +1,10 @@
 import os
-from dotenv import load_dotenv
+from dotenv import load_dotenv, set_key, find_dotenv
 from notion_client import Client
 
-
 # .env 파일 로드
-load_dotenv()
+env = find_dotenv("./4_regex_notion/.env")
+load_dotenv(env)
 
 # 1. Notion 연결
 NOTION_TOKEN = os.getenv("NOTION_TOKEN")
@@ -75,3 +75,8 @@ print("Data Source ID:", data_source_id)
     →  자동화 스크립트인데 마지막 단계가 수작업. python-dotenv의 set_key()로 자동 반영하는 게 실무형
 
 '''
+
+# 3."출력 후 수동으로 .env에 저장"
+from dotenv import load_dotenv, set_key, find_dotenv
+set_key(env, "NOTION_DATABASE_ID2", database_id, quote_mode="never")
+set_key(env, "NOTION_SOURCE_ID2", data_source_id, quote_mode="never")

@@ -20,7 +20,32 @@ result = notion.data_sources.query(
     data_source_id=data_source_id,
     #----------------------------
 
+    #-----------------------------
 
+    # filter={
+    #     "property" : "상태",
+    #     "select" : {
+    #         "equals" : "재학"
+    #     }
+    # }
+
+    #-------------------------------
+
+    # filter = {
+    #     "property" : "이름",
+    #     "title" : {
+    #         "contains" : "강"
+    #     }
+    # }
+
+    #-------------------------------
+
+    filter = {
+        "property" : "나이",
+        "number" : {
+            "greater_than_or_equal_to" : 5
+        }
+    }
     
 )
 

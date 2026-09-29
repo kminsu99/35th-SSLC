@@ -50,29 +50,36 @@ for i, page in enumerate(pages, start=1):
 
 # ..............................................
 # 6. 수정할 학생 선택
-
-
+update_num = int(input('수정할 번호를 입력하세요 -> '))
+page_id = pages[update_num-1].get('id', "")
 
 # ..............................................
 # 7. 새로운 상태 선택
-# print("\n변경할 상태 선택")
-# print("1. 재학")
-# print("2. 졸업")
+print("\n변경할 상태 선택")
+print("1. 재학")
+print("2. 졸업")
 
-# status_num = input("번호 선택: ")
+status_num = input("번호 선택: ")
 
-# if status_num == "1":
-#     new_status = "재학"
-# elif status_num == "2":
-#     new_status = "졸업"
-# else:
-#     print("❌ 잘못된 번호입니다.")
-#     exit()
+if status_num == "1":
+    new_status = "재학"
+elif status_num == "2":
+    new_status = "졸업"
+else:
+    print("❌ 잘못된 번호입니다.")
+    exit()
 
 
 # ..............................................
 # 8. 상태값만 수정
-
+notion.pages.update(
+    page_id=page_id,
+    properties = {
+        "상태" : {
+            "select" : { "name" : new_status }
+        }
+    }
+)
 
 print(f"\n✅ 상태가 '{new_status}'(으)로 수정되었습니다.")
 

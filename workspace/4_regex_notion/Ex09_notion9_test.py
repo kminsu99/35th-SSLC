@@ -1,10 +1,12 @@
 import os
-from dotenv import load_dotenv
+from dotenv import load_dotenv, set_key, find_dotenv
 from notion_client import Client
 
 
 # .env 파일 로드
-load_dotenv()
+DOTENV_PATH = find_dotenv()
+# print(f"path : {DOTENV_PATH}")
+load_dotenv(DOTENV_PATH)
 
 NOTION_TOKEN = os.getenv("NOTION_TOKEN")
 PARENT_PAGE_ID = os.getenv("NOTION_PARENT_PAGE_ID")
@@ -227,7 +229,49 @@ def get_sample_todo(data_source_id: str):
         print("-" * 30)
 
 if __name__ == "__main__":
-    pass
+    # create_todo_database()
+    # add_sample_todo(data_source_id: str)
+    # add_sample_todo(data_source_id: str)
 
+    data_source_id = os.getenv("DATA_SOURCE_ID_AUTO")
+    # print(data_source_id)
+    if data_source_id is None:
+        data_source_id = create_todo_database()
+        set_key(DOTENV_PATH, "DATA_SOURCE_ID_AUTO", data_source_id, quote_mode="never")
 
-    
+        os.environ["DATA_SOURCE_ID_AUTO"] = data_source_id
+
+    DATA_SOURCE_ID_AUTO = os.getenv("DATA_SOURCE_ID_AUTO")
+    if data_source_id is None:
+        raise RuntimeError("DATA_SOURCE_ID_AUTO 키값이 .env파일에 없습니다")
+
+    # add_sample_todo(DATA_SOURCE_ID_AUTO)
+    # get_sample_todo(DATA_SOURCE_ID_AUTO)
+
+    # ======================================================================
+    # 메뉴 선택
+    # ======================================================================
+    while True:
+        print("\n===== Todo 메뉴 =====")
+        print("1. 할 일 추가")
+        print("2. 할 일 조회")
+        print("9. 프로그램 종료")
+
+        choice = input("\n메뉴 번호를 입력하세요: ")
+
+        # 1번: 할 일 추가
+        if choice == "1":
+            add_sample_todo(DATA_SOURCE_ID_AUTO)
+
+        # 2번: 할 일 조회
+        elif choice == "2":
+            get_sample_todo(DATA_SOURCE_ID_AUTO)
+
+        # 9번: 프로그램 종료
+        elif choice == "9":
+            print("\n프로그램을 종료합니다.")
+            break
+
+        # 잘못된 입력
+        else:
+            print("\n⚠️ 1, 2, 9 중에서 선택하세요.")

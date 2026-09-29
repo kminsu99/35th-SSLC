@@ -40,14 +40,17 @@ for i, page in enumerate(pages, start=1):
 
 #..............................................
 # 6. 삭제할 페이지 번호 입력
+delete_num = int(input('삭제할 번호를 입력하세요 -> ')) - 1
+# print(delete_num)
 
 
 # 번호에 해당하는 페이지 선택
-
+page_id = pages[delete_num].get('id', "")
+print(page_id)
 
 #..............................................
 # 7. 페이지 삭제
 # archived=True : 해당 페이지를 삭제(휴지통으로 이동) 상태로 변경합니다.
-
+notion.pages.update(page_id=page_id, archived=True)
 
 print("\n✅ 페이지가 삭제되었습니다.")
