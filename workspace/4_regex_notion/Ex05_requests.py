@@ -10,3 +10,4 @@ if response.status_code == 200:
     print(f"현재 서버의 공인 IP: {data['ip']}")
 else:
     print(f"연결 실패: {response.status_code}")
+

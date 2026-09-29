@@ -1,4 +1,5 @@
 # 1. 정규표현식 문법 기초 
+import re
 
 # # 1-1. 문자, 숫자 매치
 
@@ -58,3 +59,62 @@
 # password_candidate = "가"
 # if re.search(r"[^\sa-zA-Z0-9ㄱ-힣]", password_candidate):
 #     print("특수문자가 포함되어 비밀번호 정책을 만족합니다")
+
+
+# import re
+
+# log_line = "ERROR: Login failed from 192.168.1.100"
+
+# # search() #문자열 어디에서든 찾기
+# result = re.search(r"Login", log_line)
+# print(result.group())   # Login
+
+# # match() #문자열 처음부터 찾기
+# result = re.match(r"Login", log_line)
+# print(result)            # None
+
+# import re
+
+# log_line = "2026-09-16 ERROR Login failed"
+
+# print(re.search(r"^2026", log_line))
+# print(re.match(r"^2026", log_line))
+# print(re.search(r"ca*t", "ct")) #o
+# print(re.search(r"ca*t", "cat")) #o
+# print(re.search(r"ca*t", "caat")) #o
+# print(re.search(r"ca+t", "ct")) #x
+# print(re.search(r"ca+t", "cat")) #o
+# print(re.search(r"ca+t", "caat")) #o
+# print(re.search(r"ca{2,}t", "caaaaaaat"))
+# print(re.search(r"ca{,5}t", "caaaaat"))
+# print(re.search(r"ca?t", "ct"))
+# print(re.search(r"ca?t", "cat"))
+# print(re.search(r"ca?t", "caaat"))
+
+### 연습문제 — 정규표현식 기초
+
+# **문제 1** — 
+# `\d{4}-\d{2}-\d{2}` 패턴이 어떤 형식의 문자열을 검증하는지 설명하고, 
+# `"2026-04-05"`라는 문자열이 이 형식을 정확히 만족하는지 
+# `re.match()`로 확인하는 코드를 작성해 봅시다.
+
+#문자4개 - 문자2개 - 문자2개 패턴
+#ex) aaaa-aa-aa
+print(re.match(r"\d{4}-\d{2}-\d{2}", "2026-04-05"))
+
+
+# **문제 2** — 
+# `log_line = "Failed login for admin from 10.0.0.5"`에서 
+# `admin` 또는 `root` 계정이 포함되어 있는지 `re.search()`와 `(admin|root)` 그룹으로 확인하고, 
+# 발견되면 경고 메시지를 출력하는 코드를 작성해 봅시다.
+log_line = "Failed login for admin from 10.0.0.5"
+if re.search(r"(admin|root)", log_line):
+    print("WARNING : admin, root access")
+
+
+# **문제 3**  — 
+# IPv4 주소를 매칭하기 위한 네 가지 후보 중 가장 정확한 것을 고르고 그 이유를 설명해 봅시다: 
+# `\d.\d.\d.\d` / `\d+\.\d+\.\d+\.\d+` / `\w+\.\w+\.\w+\.\w+` / `[0-9]{1,3}[.][0-9]{1,3}`
+
+#\d+\.\d+\.\d+\.\d+
+#123.123.123.123 식만족
