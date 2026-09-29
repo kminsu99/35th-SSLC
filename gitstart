@@ -26,3 +26,12 @@
 -> checkout은 기능을 다가짐, 기능과다해서 기능을 분리함
 브랜치 이동 : switch
 파일 복원 : restore
+
+#커밋 취소 + 변경 내용 staged 유지
+git reset --soft HEAD~1
+
+커밋 취소 + 변경 내용 unstaged
+git reset --mixed HEAD~1
+
+git reset --hard HEAD~1
+커밋 취소 + 변경 내용까지 삭제 ⚠️

@@ -34,7 +34,10 @@ from dotenv import load_dotenv, set_key, find_dotenv
 load_dotenv()
 NOTION_TOKEN = os.getenv("NOTION_TOKEN")
 NOTION_PARENT_PAGE_ID = os.getenv("NOTION_PARENT_PAGE_ID")
-notion = Client(auth=NOTION_TOKEN)
+try:
+    notion = Client(auth=NOTION_TOKEN)
+except Exception as e:
+    print("notion API 호출 실패, ERROR: ", e)
 # API TEST
 # print(f"TOKEN : {NOTION_TOKEN}\nPAGE_ID : {NOTION_PARENT_PAGE_ID}")
 
@@ -47,7 +50,7 @@ DATA_SOURCE_ID = os.getenv("DATA_SOURCE_ID")
 if not DATA_SOURCE_ID:
     DATA_SOURCE_ID = response["results"][0]["id"]
     set_key(".env", "DATA_SOURCE_ID", response["results"][0]["id"])
-# print(f"DATA_SOURCE_ID : {DATA_SOURCE_ID}") #DATA SOURCE ID 출력
+print(f"DATA_SOURCE_ID : {DATA_SOURCE_ID}") #DATA SOURCE ID 출력
 
 
 # 가이드2. 데이터 유효성 검증(Regex)
@@ -74,7 +77,7 @@ title = host
 rich_text = ip
 number = port
 select:Active/Maintenance/Decommissioned = status
-multi_select:Web/DB/WAS/Cache : tag
+multi_select:Web/DB/WAS/Cache = tag
 """
 
 DATA_SOURCE_ID = os.getenv("DATA_SOURCE_ID")
@@ -86,6 +89,7 @@ DATA_SOURCE_ID = os.getenv("DATA_SOURCE_ID")
 
 # 요구사항1. 메뉴 인터페이스 : loop 활용 user에게 menu제공, 입력요청, 0입력시 프로그램 종료
 def menu_interface():
+    """메뉴 인터페이스 함수"""
     while True:
         print("""
     1. 전체 서버 목록 조회
@@ -94,25 +98,36 @@ def menu_interface():
     4. 서버 폐기
     0. 프로그램 종료
     """)
-        user_input = int(input("입력 : "))
+        user_input = input("입력 : ")
         match user_input:
-            case 1:
+            case "1":
                 print("1. 전체 서버 목록 조회")
-                db_read()
-            case 2:
-                print("2")
-            case 3:
+                try:
+                    db_read()
+                except Exception as e:
+                    print("DB READ 예외, ", e)
+            case "2":
+                print("2. 신규 서버 등록")
+                try:
+                    db_create()
+                except Exception as e:
+                    print("DB CREATE 예외, ", e)
+            case "3":
                 print("3")
-            case 4:
+            case "4":
                 print("4")
-            case 0:
-                return 0
+            case "0":
+                break
             case _:
                 print("예상못한 입력")
         
 
 # 요구사항2. 조회(READ) : 현재 DB에 등록된 모든 server's host, ip, port, status, tag를 번호와 함께 출력
 def db_read():
+    """
+    db table 전체 조회(READ)함수
+    속성(host, ip, port, status, tag)
+    """
     response = notion.data_sources.query(data_source_id=DATA_SOURCE_ID)
     for row in response["results"]:
         print("="*50)
@@ -134,11 +149,33 @@ def db_read():
             print(f"{name}: {value}")
     return 0
 
-# 요구사항3. 생성(CREATE) : input(host, ip, port, status, tag) -> DB에 page추가, 신규 등록시 상태 'Active'고정
-def db_create(value: str):
-    hostname = "hostname"
-    ip_addr = "15.15.15.15"
-    port = 5555
+# 요구사항3. 생성(CREATE) : input(host, ip, port, tag) 
+# -> DB에 page추가, 신규 등록시 상태 'Active'고정
+#validate_port
+#validate_ip
+#validate_hostname
+def db_create():
+    """DB 테이블에 새 page 추가
+    호스트명, ip주소, 포트, 태그 입력 (상태는 Active고정)
+    validate함수로 각 입력 검증"""
+    #각 항목별 input() + valid()
+    hostname, ip_addr, port = "", "", ""
+    #(r"^srv-(web|db|was|cache)-\d{2}$")
+    while not validate_hostname(hostname := input("호스트명 : ")):
+        print(f"{hostname} - {validate_hostname(hostname)} <- 형식 오류, ex)srv-(string)-(int)")
+    #IP_PATTERN = re.compile(r"^\d{1,3}(\.\d{1,3}){3}$")
+    while not validate_ip(ip_addr := input("IP주소 : ")):
+        print(f"{ip_addr} - {validate_ip(ip_addr)} <- 형식 오류, ex)1.1.1.1")
+    while not validate_port(port := input("포트 : ")):
+        print(f"{port} - {validate_port(port)} <-형식 오류, ex)(int)")
+    print(f"{hostname}, {ip_addr}, {port}")
+    return 0
+    while True:
+        tag = input("태그 : ")
+        if tag=="Web" | tag == "DB" | tag == "WAS" | tag == "Cache":
+            break
+        print("형식 오류")
+
     notion.pages.create(
         parent = {
                 "type": "data_source_id",
@@ -166,11 +203,9 @@ def db_create(value: str):
             },
             "태그" : {
                 "multi_select" : [
-                    {"ㅁ" : {"ㅁ" : 1}}
+                    {"name" : tag}
                 ]
             },
-            
-            
         }
     )
 
