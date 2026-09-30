@@ -1,0 +1,271 @@
+(.venv) C:\Users\EZ\SSLC\workspace>c:\Users\EZ\SSLC\workspace\.venv\Scripts\python.exe c:/Users/EZ/SSLC/workspace/PBL/ADV01/35기_파이썬_PBL_ADV01_강민수.py
+NEW DB CREATE
+===========메뉴 인터페이스===========
+    1. 전체 서버 목록 조회
+    2. 신규 서버 등록
+    3. 서버 상태 변경 ( Active / Maintenance / Decommissioned )
+    4. 서버 폐기
+    0. 프로그램 종료
+    
+입력 : 1
+1. 전체 서버 목록 조회
+WARNING:notion_client:request fail: code=APIErrorCode.ValidationError, message=path failed validation: path.data_source_id should be a valid uuid, instead was `"None"`., attempt=0, request_id=8505b49a-41cb-4f33-a811-fba3672541b8
+response < data_source_id 에러  path failed validation: path.data_source_id should be a valid uuid, instead was `"None"`.
+
+=========== DATABASE INFO ===========
+     호스트명|           IP주소 : 포트 |      상태      |     태그
+DB 요소 출력 에러  cannot access local variable 'response' where it is not associated with a value
+===========메뉴 인터페이스===========
+    1. 전체 서버 목록 조회
+    2. 신규 서버 등록
+    3. 서버 상태 변경 ( Active / Maintenance / Decommissioned )
+    4. 서버 폐기
+    0. 프로그램 종료
+    
+입력 : Traceback (most recent call last):
+  File "c:\Users\EZ\SSLC\workspace\PBL\ADV01\35기_파이썬_PBL_ADV01_강민수.py", line 366, in <module>
+    #메뉴 인터페이스 실행
+    ^^^^^^^
+  File "c:\Users\EZ\SSLC\workspace\PBL\ADV01\35기_파이썬_PBL_ADV01_강민수.py", line 160, in menu_interface
+    user_input = input("입력 : ")
+                 ^^^^^^^^^^^^^^
+KeyboardInterrupt
+^C
+(.venv) C:\Users\EZ\SSLC\workspace>c:\Users\EZ\SSLC\workspace\.venv\Scripts\python.exe c:/Users/EZ/SSLC/workspace/PBL/ADV01/35기_파이썬_PBL_ADV01_강민수.py
+NEW DB CREATE
+===========메뉴 인터페이스===========
+    1. 전체 서버 목록 조회
+    2. 신규 서버 등록
+    3. 서버 상태 변경 ( Active / Maintenance / Decommissioned )
+    4. 서버 폐기
+    0. 프로그램 종료
+    
+입력 : 1
+1. 전체 서버 목록 조회
+
+=========== DATABASE INFO ===========
+     호스트명|           IP주소 : 포트 |      상태      |     태그
+===========메뉴 인터페이스===========
+    1. 전체 서버 목록 조회
+    2. 신규 서버 등록
+    3. 서버 상태 변경 ( Active / Maintenance / Decommissioned )
+    4. 서버 폐기
+    0. 프로그램 종료
+    
+입력 : 2
+2. 신규 서버 등록
+호스트명 : srv-ㄱㄴ-01
+잘못된 호스트명 다시 입력해주세요( ex)srv-db-01 )
+호스트명 : #-#-#
+잘못된 호스트명 다시 입력해주세요( ex)srv-db-01 )
+호스트명 : srvdb-01
+잘못된 호스트명 다시 입력해주세요( ex)srv-db-01 )
+호스트명 : srv-db-01
+IP주소 : !!.!.!.1
+잘못된 호스트명 다시 입력해주세요( ex)172.111.111.111 )
+IP주소 : 1.1.1
+잘못된 호스트명 다시 입력해주세요( ex)172.111.111.111 )
+IP주소 : 1.1.1.1
+포트 : #
+잘못된 포트 다시 입력해주세요( 1~65535 )
+포트 : 0
+잘못된 포트 다시 입력해주세요( 1~65535 )
+포트 : 65536
+잘못된 포트 다시 입력해주세요( 1~65535 )
+포트 : 65535
+태그 입력(0입력시 종료) : Web
+태그 입력(0입력시 종료) : @
+잘못된 태그 다시 입력해주세요(Web/DB/WAS/Cache)
+태그 입력(0입력시 종료) : ##
+잘못된 태그 다시 입력해주세요(Web/DB/WAS/Cache)
+태그 입력(0입력시 종료) : db
+잘못된 태그 다시 입력해주세요(Web/DB/WAS/Cache)
+태그 입력(0입력시 종료) : DB
+태그 입력(0입력시 종료) : WAS
+태그 입력(0입력시 종료) : 0
+DB ADD SUCCESS
+===========메뉴 인터페이스===========
+    1. 전체 서버 목록 조회
+    2. 신규 서버 등록
+    3. 서버 상태 변경 ( Active / Maintenance / Decommissioned )
+    4. 서버 폐기
+    0. 프로그램 종료
+    
+입력 : 1
+1. 전체 서버 목록 조회
+
+=========== DATABASE INFO ===========
+     호스트명|           IP주소 : 포트 |      상태      |     태그
+    srv-db-01|         1.1.1.1 : 65535 |     Active     |['Web', 'DB', 'WAS']
+===========메뉴 인터페이스===========
+    1. 전체 서버 목록 조회
+    2. 신규 서버 등록
+    3. 서버 상태 변경 ( Active / Maintenance / Decommissioned )
+    4. 서버 폐기
+    0. 프로그램 종료
+    
+입력 : 2
+2. 신규 서버 등록
+호스트명 : srv-cache-01
+IP주소 : 2.2.2.2
+포트 : 80
+태그 입력(0입력시 종료) : Cache
+태그 입력(0입력시 종료) : 0 
+DB ADD SUCCESS
+===========메뉴 인터페이스===========
+    1. 전체 서버 목록 조회
+    2. 신규 서버 등록
+    3. 서버 상태 변경 ( Active / Maintenance / Decommissioned )
+    4. 서버 폐기
+    0. 프로그램 종료
+    
+입력 : 1
+1. 전체 서버 목록 조회
+
+=========== DATABASE INFO ===========
+     호스트명|           IP주소 : 포트 |      상태      |     태그
+ srv-cache-01|         2.2.2.2 : 80    |     Active     |['Cache']
+    srv-db-01|         1.1.1.1 : 65535 |     Active     |['Web', 'DB', 'WAS']
+===========메뉴 인터페이스===========
+    1. 전체 서버 목록 조회
+    2. 신규 서버 등록
+    3. 서버 상태 변경 ( Active / Maintenance / Decommissioned )
+    4. 서버 폐기
+    0. 프로그램 종료
+    
+입력 : 3
+3. 서버 상태 변경 ( Active / Maintenance / Decommissioned )
+상태를 수정할 서버 번호를 입력하세요 -> ㄱ
+DB PAGE UPDATE 예외,  invalid literal for int() with base 10: 'ㄱ'
+===========메뉴 인터페이스===========
+    1. 전체 서버 목록 조회
+    2. 신규 서버 등록
+    3. 서버 상태 변경 ( Active / Maintenance / Decommissioned )
+    4. 서버 폐기
+    0. 프로그램 종료
+    
+입력 : 3
+3. 서버 상태 변경 ( Active / Maintenance / Decommissioned )
+상태를 수정할 서버 번호를 입력하세요 -> 2 
+[0] Active / [1] Maintenance / [2] Decommissioned
+상태입력 : ㄱ
+입력값에러 int형변환실패,  invalid literal for int() with base 10: 'ㄱ'
+DB PAGE UPDATE 예외,  cannot access local variable 'user_input' where it is not associated with a value
+===========메뉴 인터페이스===========
+    1. 전체 서버 목록 조회
+    2. 신규 서버 등록
+    3. 서버 상태 변경 ( Active / Maintenance / Decommissioned )
+    4. 서버 폐기
+    0. 프로그램 종료
+    
+입력 : 3
+3. 서버 상태 변경 ( Active / Maintenance / Decommissioned )
+상태를 수정할 서버 번호를 입력하세요 -> 3 
+유효하지 않은 페이지 번호입니다. 입력값[3] <= 페이지최대번호[2]
+===========메뉴 인터페이스===========
+    1. 전체 서버 목록 조회
+    2. 신규 서버 등록
+    3. 서버 상태 변경 ( Active / Maintenance / Decommissioned )
+    4. 서버 폐기
+    0. 프로그램 종료
+    
+입력 : 3
+3. 서버 상태 변경 ( Active / Maintenance / Decommissioned )
+상태를 수정할 서버 번호를 입력하세요 -> 2
+[0] Active / [1] Maintenance / [2] Decommissioned
+상태입력 : 2
+수정완료.
+===========메뉴 인터페이스===========
+    1. 전체 서버 목록 조회
+    2. 신규 서버 등록
+    3. 서버 상태 변경 ( Active / Maintenance / Decommissioned )
+    4. 서버 폐기
+    0. 프로그램 종료
+    
+입력 : 1
+1. 전체 서버 목록 조회
+
+=========== DATABASE INFO ===========
+     호스트명|           IP주소 : 포트 |      상태      |     태그
+ srv-cache-01|         2.2.2.2 : 80    |     Active     |['Cache']
+    srv-db-01|         1.1.1.1 : 65535 | Decommissioned |['Web', 'DB', 'WAS']
+===========메뉴 인터페이스===========
+    1. 전체 서버 목록 조회
+    2. 신규 서버 등록
+    3. 서버 상태 변경 ( Active / Maintenance / Decommissioned )
+    4. 서버 폐기
+    0. 프로그램 종료
+    
+입력 : 4
+4. 서버 폐기
+삭제할 페이지 번호를 입력하세요 -> 1
+서버가 삭제되었습니다.
+===========메뉴 인터페이스===========
+    1. 전체 서버 목록 조회
+    2. 신규 서버 등록
+    3. 서버 상태 변경 ( Active / Maintenance / Decommissioned )
+    4. 서버 폐기
+    0. 프로그램 종료
+    
+입력 : 1
+1. 전체 서버 목록 조회
+
+=========== DATABASE INFO ===========
+     호스트명|           IP주소 : 포트 |      상태      |     태그
+    srv-db-01|         1.1.1.1 : 65535 | Decommissioned |['Web', 'DB', 'WAS']
+===========메뉴 인터페이스===========
+    1. 전체 서버 목록 조회
+    2. 신규 서버 등록
+    3. 서버 상태 변경 ( Active / Maintenance / Decommissioned )
+    4. 서버 폐기
+    0. 프로그램 종료
+    
+입력 : 4
+4. 서버 폐기
+삭제할 페이지 번호를 입력하세요 -> r#
+DB PAGE DELETE 예외,  invalid literal for int() with base 10: 'r#'
+===========메뉴 인터페이스===========
+    1. 전체 서버 목록 조회
+    2. 신규 서버 등록
+    3. 서버 상태 변경 ( Active / Maintenance / Decommissioned )
+    4. 서버 폐기
+    0. 프로그램 종료
+    
+입력 : 4
+4. 서버 폐기
+삭제할 페이지 번호를 입력하세요 -> 2
+유효하지 않은 페이지 번호입니다. 입력값[2] <= 페이지최대번호[1]
+===========메뉴 인터페이스===========
+    1. 전체 서버 목록 조회
+    2. 신규 서버 등록
+    3. 서버 상태 변경 ( Active / Maintenance / Decommissioned )
+    4. 서버 폐기
+    0. 프로그램 종료
+    
+입력 : 4
+4. 서버 폐기
+삭제할 페이지 번호를 입력하세요 -> 1
+서버가 삭제되었습니다.
+===========메뉴 인터페이스===========
+    1. 전체 서버 목록 조회
+    2. 신규 서버 등록
+    3. 서버 상태 변경 ( Active / Maintenance / Decommissioned )
+    4. 서버 폐기
+    0. 프로그램 종료
+    
+입력 : 1
+1. 전체 서버 목록 조회
+
+=========== DATABASE INFO ===========
+     호스트명|           IP주소 : 포트 |      상태      |     태그
+===========메뉴 인터페이스===========
+    1. 전체 서버 목록 조회
+    2. 신규 서버 등록
+    3. 서버 상태 변경 ( Active / Maintenance / Decommissioned )
+    4. 서버 폐기
+    0. 프로그램 종료
+    
+입력 : 0
+0. 프로그램 종료
+
+(.venv) C:\Users\EZ\SSLC\workspace>
