@@ -4,3 +4,5 @@
 공지사항
 desktop.ini
 test/
+.vscode/
+__pycache__/
