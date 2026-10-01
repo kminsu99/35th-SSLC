@@ -20,10 +20,19 @@ db = DBServer("DB-01", "192.168.1.20")
 
 
 # 상속 관계에서 자식 객체가 부모 타입인지, 또는 특정 서버 타입인지 체크할 때
+print(isinstance(web, WebServer))
+print(isinstance(web, DBServer))
 
+print(isinstance(web, BaseServer))
 
 
 # 실무 활용: 여러 타입이 섞인 서버 리스트에서 웹 서버만 골라 점검
-
+servers = [web, db]
+"""
+web.xxx()
+db.xxx()"""
+for server in servers:
+    if isinstance(server, WebServer):
+        print(f"{server.name} is WebServer")
 
 

@@ -4,33 +4,11 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from dotenv import load_dotenv
 
+# [추가] bs4 보안뉴스 웹스크래핑
+from Ex06_bs4 import get_security_news_return_str
+
 # 1. 환경변수 로드 (.env 파일에 계정정보를 분리 보관합니다)
 load_dotenv()
-
-#==========================================
-from email.mime.application import MIMEApplication
-from pathlib import Path
-
-def attach_upload_files(message):
-    """upload 폴더의 파일을 첨부합니다."""
-
-    # [추가] 전송할 첨부 파일 경로 목록입니다.
-    BASE_DIR = Path(__file__).parent
-    UPLOAD_FOLDER = BASE_DIR / "upload"
-    DOWNLOAD_FOLDER = BASE_DIR / "download"
-    SOURCE_FILE = "security_report.txt"
-    upload_files = [UPLOAD_FOLDER / SOURCE_FILE, DOWNLOAD_FOLDER / SOURCE_FILE]
-
-    for file_path in upload_files:
-        file_path = Path(file_path)  # 문자열 경로를 Path 객체로 변환
-        with file_path.open("rb") as file:
-            attachment = MIMEApplication(file.read())
-            attachment.add_header(
-                "Content-Disposition", "attachment", filename=file_path.name
-            )
-        message.attach(attachment)
-
-#------------------------------------------
 
 def send_security_report(news_list, to_email):
     # .env 파일에서 정보 가져오기 (하드코딩 절대 금지)
@@ -50,18 +28,14 @@ def send_security_report(news_list, to_email):
     msg['To'] = to_email
 
     html_content = f"""
-    <h3> [ 알림 ] 최신 보안 취약점 및 뉴스 목록</h3>
+    <h3> [ bs4 ] 웹스크래핑
     <hr>
     <ul>
-        {''.join([f'<li>{news}</li>' for news in news_list])}
+        {''.join([f'{get_security_news_return_str()}'])}
     </ul>
     <p style="color:gray;">본 메일은 인프라 관리 시스템에 의해 자동 발송되었습니다.</p>
     """
-    
     msg.attach(MIMEText(html_content, 'html'))
-    #=======================================
-    attach_upload_files(msg)
-    #---------------------------------------
 
     # 3. 서버 접속 및 발송
     try:

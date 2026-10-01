@@ -32,3 +32,12 @@ class DBServer(BaseServer):
         print("DB 서비스(3306) 가동!")
 
 # 여기
+servers = [ WebServer("Web-01", "1.1.1.1"), DBServer("DB-99", "127.0.0.1") ]
+# a = WebServer()
+# a.check()
+# b = DBServer()
+# b.check()
+for server in servers:
+    server.power_on()       #부모
+    server.run_service()    #내꺼
+    server.check()          #내꺼

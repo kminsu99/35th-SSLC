@@ -16,9 +16,9 @@ def daily_security_work():
 
 # 2. 스케줄 등록
 # 여기
-
-
-
+# schedule.every().day.at("16:39").do(daily_security_work)
+# schedule.every().wednesday.at("16:42").do(daily_security_work)
+schedule.every(10).seconds.do(daily_security_work)
 
 print("보안 자동화 비서가 가동되었습니다. 종료하려면 Ctrl+C를 누르세요.")
 

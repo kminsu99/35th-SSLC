@@ -26,3 +26,9 @@ class LogAnalyzer:
 
 
 # 확인
+if __name__ == "__main__":
+    print("단독 실행")
+    
+    sample = LogAnalyzer(["[2026-10-19 12:01:22][INFO] 서비스 시작"])
+    result = sample.filter_by_level('INFO')
+    print(result)

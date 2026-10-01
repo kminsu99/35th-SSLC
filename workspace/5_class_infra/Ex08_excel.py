@@ -26,13 +26,15 @@ def create_excel_report(news_data):
         if risk == "High":
             ws.cell(row=ws.max_row, column=3).font = Font(color="FF0000", bold=True)
 
-   
-    wb.save("Daily_Security_Report.xlsx")
+    # wb.save("output/Daily_Security_Report.xlsx")
+    # output/ 경로가 없을경우 자동으로 생성, 에러없이 실행되도록
+    BASE_DIR = Path(__file__).parent
+    SAVE_FOLDER = BASE_DIR / "output"
+    SAVE_FOLDER.mkdir(parents=True, exist_ok=True)
+    SOURCE_FILE = "Daily_Security_Report.xlsx"
+    wb.save(SAVE_FOLDER/SOURCE_FILE)
     
     # 기존에 output 디렉토리가 있으면 실행, 없으면 에러 발생
-
-
-
 
 if __name__ == "__main__":
     test_news = ["Windows 커널 취약점 발견", "신규 보안 패치 안내", "개인정보 유출 사고"]

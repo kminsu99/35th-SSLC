@@ -8,3 +8,5 @@ logs = [
 ]
 
 # log_analyzer 모듈 활용
+analyzer = LogAnalyzer(logs)
+print(analyzer.filter_by_level('ERROR'))

@@ -26,3 +26,7 @@ class WebServer(BaseServer):
 
 
 # 여기
+my_web = WebServer("Web-01", "192.168.16.18")
+my_web.power_on()
+my_web.run_service()
+my_web.check()
