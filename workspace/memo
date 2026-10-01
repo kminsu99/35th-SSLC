@@ -5,6 +5,8 @@
 	.venv\Scripts\activate
 [ Mac/Linux: ]
 	source .venv/bin/activate
+# 가상환경 종료
+deactivate
 
 가상환경에서 파이썬 코드 VS매크로로 실행후 dir위치 확인
 
