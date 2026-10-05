@@ -202,7 +202,7 @@ def DB_READ(data_source_id: str):
 
     try:
         print("\n=========== DATABASE INFO ===========")
-        print(f"{'호스트명':>9}| {'IP주소':>13} : {'포트':<3}| {'상태':^13}|{'태그':>7}")
+        print(f"{'호스트명':>9}| {'IP주소':>13} : {'포트':<3} | {'상태':^13}|{'태그':>7}")
         for page in response["results"]:
             properties = page["properties"]
             # 호스트명
