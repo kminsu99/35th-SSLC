@@ -6,3 +6,5 @@ desktop.ini
 test/
 .vscode/
 __pycache__/
+input
+output
