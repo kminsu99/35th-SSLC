@@ -11,7 +11,7 @@ import requests
 rss_url = "https://www.boannews.com/rss/clickTop.xml"
 
 feed = feedparser.parse(rss_url)
-# print(feed)
+print(feed)
 
 news_list = feed.entries[:10]
 print(news_list[0])
