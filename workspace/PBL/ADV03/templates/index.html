@@ -1,0 +1,17 @@
+<!-- templates/index.html -->
+<body>
+    <h1>KISA(한국인터넷진흥원) 보호나라</h1>
+    <ul>
+        {% for advisory in advisory_list %}
+            <li>
+                {#- 문제 해결 가이드 3. 조건부 표시: 템플릿에서 {% if advisory.is_watched %}로 감시 대상 공지만 빨간색 강조 출력
+                    요구사항 4. 웹 대시보드 : is_watched가 True인 공지는 빨간색 "[주요 제품]" 표시로 강조
+                    #}
+                {% if advisory.is_watched %}
+                    <b style="color:red;">[주요 제품]</b>
+                {% endif %}
+                <a href="{{ advisory.link }}" target="_blank">{{ advisory.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>

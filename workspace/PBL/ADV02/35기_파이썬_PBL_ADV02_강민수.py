@@ -95,7 +95,7 @@ def get_security_news_rows():
             "AppleWebKit/537.36 (KHTML, like Gecko) "
             "Chrome/120.0.0.0 Safari/537.36"
         )
-    }
+    } 
 
     try:
         response = requests.get(
